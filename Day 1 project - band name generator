@@ -1,0 +1,5 @@
+print("Welcome to the Band Name Generator")
+# the \n can go into the first set of quotes instead of the ="\n"
+city = input("What's the name of the city you grew up in?" + "\n")
+pet_name = input("What's your pet's namen?" + "\n")
+print("Your band name could be " + city + " " + pet_name)
