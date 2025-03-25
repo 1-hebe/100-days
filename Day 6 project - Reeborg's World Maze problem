@@ -1,0 +1,26 @@
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()
+    
+def face_north():
+    while is_facing_north() != True:
+        turn_left()
+
+count = 0
+
+while at_goal() != True:
+    if right_is_clear() and count < 5:
+        turn_right()
+        move()
+        count = count + 1
+    elif right_is_clear() and count == 5:
+       # turn_left()
+        face_north()
+        count = 0
+    elif front_is_clear():
+        while not wall_in_front():
+            move()
+    else:
+        turn_left()
+   
