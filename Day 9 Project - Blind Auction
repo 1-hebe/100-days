@@ -1,0 +1,26 @@
+import art
+print(art.logo)
+
+bidder_record = {}
+new_bidder = True
+
+while new_bidder == True:
+    bidder_record |= {
+        input("What is your name?  "):
+        int(input("What is your bid? $ "))
+    }
+    more_bidders = input("Are there more bids? Y/N?\n").lower()
+    if more_bidders[0] == "n":
+        new_bidder = False
+    else:
+        print("\n" *20)
+
+# bidder_record = {"Heather":36 , "Amelia":85, "Tamsin":74,}
+
+high_bid = 0
+high_bidder = ""
+for name in bidder_record:
+    if bidder_record[name] > high_bid:
+        high_bidder = name
+        high_bid = bidder_record[name]
+print(f"The winner is {high_bidder} with a bid of ${high_bid}")
