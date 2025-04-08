@@ -1,0 +1,68 @@
+import art
+import random
+
+def draw_card():
+    """draws a card and puts it in a hand"""
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    return random.choice(cards)
+
+
+def calculate_score(card_hand):
+    """calculates the total of the hand."""
+    score = sum(card_hand)
+    while score > 21 and 11 in card_hand:
+        score -= 10
+    return score
+
+
+def display_cards_and_scores():
+    """Displays the playing table and asks the player if they want another card. """
+    player_score = calculate_score(player_cards)
+    if player_score <= 21:
+        print(f"Your cards: {player_cards}. Current score: {player_score}.")
+        print(f"The computer’s cards {computer_cards[0]}.")
+        return input("\nWould you like to draw another card? y/n : ").lower()
+    else:
+        return 'n'
+
+
+def computer_draw_rules():
+    """defines whether the computer needs to draw or stay to try to win the game."""
+    computer_score = calculate_score(computer_cards)
+    while computer_score <= 16:
+        computer_cards.append(draw_card())
+        computer_score = calculate_score(computer_cards)
+
+
+def who_wins():
+    computer_score = calculate_score(computer_cards)
+    player_score = calculate_score(player_cards)
+    if player_score > 21:
+        return "Computer"
+    elif computer_score > 21:
+        return "Player"
+    elif player_score == computer_score:
+        return "Draw"
+    elif player_score > computer_score:
+        return "Player"
+    else:
+        return "Computer"
+
+play_again = "y"
+while play_again[0] == "y":
+    print(art.logo)
+    player_cards = []
+    computer_cards = []
+    for initial_draw in range(2):
+        player_cards.append(draw_card())
+        computer_cards.append(draw_card())
+    hit = display_cards_and_scores()
+    while hit[0] == 'y':
+        print("\n" * 5)
+        player_cards.append(draw_card())
+        hit = display_cards_and_scores()
+    computer_draw_rules()
+    winner = who_wins()
+    print(f"The winner is: {winner}. \nPlayer hand: {player_cards} {calculate_score(player_cards)} \nComputer hand: {computer_cards} {calculate_score(computer_cards)} ")
+    play_again = input("Do you want to play again? y/n : ").lower()
+print("Thank you for playing Blackjack!")
