@@ -1,0 +1,34 @@
+import random
+import art
+
+def start_game():
+    print(art.logo)
+    print("Welcome to the Number Guessing Game! \nI'm thinking of a number between 1 and 100.")
+    return input("Choose a difficulty. Type 'easy' or 'hard' : ").lower()
+
+def make_guesses(attempt_number):
+    answer = random.randint(1,100)
+    while attempt_number > 0:
+        print(f"You have {attempt_number} attempts remaining to guess the number.")
+        guess = int(input("Make a guess: "))
+        if guess == answer:
+            attempt_number = 0
+            print(f"You got it! The answer was {answer}")
+        elif guess > answer:
+            print("Too high.")
+        else:
+            print("Too low.")
+        attempt_number -= 1
+        if attempt_number == 0:
+            print(f"You've run out of guesses. You lose. The number was {answer}")
+
+play_again = "y"
+
+while play_again[0] == "y":
+    difficulty = start_game()
+    if difficulty[0] == "e":
+        attempts = 10
+    else:
+        attempts = 5
+    make_guesses(attempts)
+    play_again = input("Would you like to play again? y/n : ").lower()
