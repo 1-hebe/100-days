@@ -1,0 +1,52 @@
+import random
+import art
+import game_data
+
+player_score = 0
+
+def pick_celeb():
+    """Picks a random celebrity from the game_data library."""
+    return random.choice(game_data.data)
+
+def scoring(player, a, b):
+    """Determines whether the play guess correctly and can continue the game."""
+    if player == a and a > b:
+        return True
+    elif player == b and b > a:
+        return True
+    else:
+        return False
+
+# Main game coding starts here, picking the initial celebrity.
+print(art.logo)
+play_again = True
+celeb_A = pick_celeb()
+
+# While the player is correct in their guesses, the play will loop through the following code.
+while play_again:
+    celeb_B = pick_celeb()
+        # if condition here just in case the random celebrities are the same, the computer can pick a new B
+    if celeb_A == celeb_B:
+        celeb_B = pick_celeb()
+
+    print(f"Compare A: {celeb_A["name"]}, {celeb_A["description"]}, {celeb_A["country"]}.")
+    print(art.vs)
+    print(f"Against B: {celeb_B["name"]}, {celeb_B["description"]}, {celeb_B["country"]}.")
+    player_answer = input("Who has more followers? Type A or B: ").lower()
+        # giving the player an instagram variable to be able to compare it to the celebrity numbers.
+    if player_answer == "a":
+        player_count = celeb_A["follower_count"]
+    else:
+        player_count = celeb_B["follower_count"]
+    # calling the scoring module to determine if the player is right.
+    play_again = scoring(player_count, celeb_A["follower_count"], celeb_B["follower_count"])
+    print("\n"*20)
+    print(art.logo)
+    if play_again:
+        player_score += 1
+        print(f"You're right! Current score: {player_score}.")
+        celeb_A = celeb_B
+        # Moving celeb_B into the celeb_A position. A new B will be picked the next time though the loop.
+    else:
+        # Game over
+        print(f"Sorry, that's wrong. Final score: {player_score}.")
