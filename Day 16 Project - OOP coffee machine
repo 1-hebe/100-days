@@ -1,0 +1,22 @@
+from menu import Menu, MenuItem
+from coffee_maker import CoffeeMaker
+from money_machine import MoneyMachine
+
+machine_on = True
+coffee_maker = CoffeeMaker()
+menu = Menu()
+money_machine = MoneyMachine()
+
+
+while machine_on:
+    menu_options = menu.get_items()
+    customer_order = input(f"What would you like? ({menu_options}): ")
+    if customer_order == "off":
+        machine_on = False
+    elif customer_order == "report":
+        coffee_maker.report()
+        money_machine.report()
+    else:
+        place_order = menu.find_drink(customer_order)
+        if coffee_maker.is_resource_sufficient(place_order) and money_machine.make_payment(place_order.cost):
+            coffee_maker.make_coffee(place_order)
